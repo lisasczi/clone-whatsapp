@@ -25,6 +25,8 @@ module Api
         end
       end
 
+
+
       # def update
       #   if @user.update(user_params)
       #     render json: @user
@@ -44,7 +46,7 @@ module Api
       end
 
       def user_params
-          params.require(:user).permit(:name)
+          params.require(:user).permit(:name, :phone_number, :last_name)
       end
 
     end

@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
 
 
   def not_authorized
-    render json: { error: 'Pas autorisé' }, status: :unauthorized
+    render json: { error: 'Pas autorisé, déso' }, status: :unauthorized
   end
 
 end
