@@ -6,7 +6,7 @@ module Api
 
       def index
         # @messages = current_user.messages.all
-        @messages = messages.all
+        @messages = Message.all
 
         render json: @messages
       end
