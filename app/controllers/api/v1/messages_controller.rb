@@ -1,12 +1,11 @@
 module Api
   module V1
     class MessagesController < ApplicationController
-      before_action :set_record, only: [:show, :update, :destroy]
+      before_action :set_message, only: [:show, :update, :destroy]
       before_action :authorize_access_request!, except: [:show, :index]
 
       def index
-        # @messages = current_user.messages.all
-        @messages = Message.all
+        @messages = current_user.messages.all
 
         render json: @messages
       end

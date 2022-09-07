@@ -26,6 +26,8 @@ module Api
         end
       end
 
+
+
       # def update
       #   if @user.update(user_params)
       #     render json: @user
