@@ -1,28 +1,31 @@
 <template>
-  <div class="max-w-sm m-auto my-8">
-    <div class="border p-10 border-grey-light shadow rounded">
-      <h3 class="text-2xl mb-6 text-grey-darkest">Sign Up</h3>
-      <form @submit.prevent="signup">
-        <div class="text-red" v-if="error">{{ error }}</div>
+  <div class="container">
+    <div class="w-100 p-3 bg-secondary text-light">>
+      <div class="border p-10 border-grey-light shadow rounded">
+        <h3 class="text-2xl mb-6 text-grey-darkest">Sign Up</h3>
+        <form @submit.prevent="signup">
+          <div class="text-red" v-if="error">{{ error }}</div>
 
-        <div class="mb-6">
-          <label for="phone_number" class="label">numero de telephone</label>
-          <input type="phone_number" v-model="phone_number" class="input" id="phone_number" placeholder="06..">
-        </div>
+          <div class="mb-6">
+            <label for="phone_number" class="label">numéro de téléphone</label>
+            <input type="phone_number" v-model="phone_number" class="input" id="phone_number" placeholder="06..">
+          </div>
 
-        <div class="mb-6">
-          <label for="name" class="label">Prenom</label>
-          <input type="name" v-model="name" class="input" id="name" placeholder="Prenom">
-        </div>
+          <div class="mb-6">
+            <label for="name" class="label">Prénom</label>
+            <input type="name" v-model="name" class="input" id="name" placeholder="Prénom">
+          </div>
 
-        <div class="mb-6">
-          <label for="last_name" class="label">Nom de famille</label>
-          <input type="last_name" v-model="last_name" class="input" id="last_name" placeholder="Nom de famille">
-        </div>
-        <button type="submit" class="font-sans font-bold px-4 rounded cursor-pointer no-underline bg-green hover:bg-green-dark block w-full py-4 text-white items-center justify-center">Sign Up</button>
-
-        <div class="my-4"><router-link to="/" class="link-grey">Sign In</router-link></div>
-      </form>
+          <div class="mb-6">
+            <label for="last_name" class="label">Nom de famille</label>
+            <input type="last_name" v-model="last_name" class="input" id="last_name" placeholder="Nom de famille">
+          </div>
+          <b-button variant="outline-dark" type="submit" >Sign Up</b-button>
+              <br>
+              <br>
+          <div class="my-4"><router-link to="/" class="link-grey">Sign In</router-link></div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -39,10 +42,10 @@ export default {
     }
   },
   created () {
-    this.checkedSignedIn()
+    this.checkedSignedUp()
   },
   updated () {
-    this.checkedSignedIn()
+    this.checkedSignedUp()
   },
   methods: {
     signup () {
@@ -57,17 +60,17 @@ export default {
       }
 
       localStorage.csrf = response.data.csrf
-      localStorage.signedIn = true
+      localStorage.signedUp = true
       this.error = ''
       this.$router.replace('/records')
     },
     signupFailed (error) {
       this.error = (error.response && error.response.data && error.response.data.error) || 'Something went wrong'
       delete localStorage.csrf
-      delete localStorage.signedIn
+      delete localStorage.signedUp
     },
-    checkedSignedIn () {
-      if (localStorage.signedIn) {
+    checkedSignedUp () {
+      if (localStorage.signedUp) {
         this.$router.replace('/records')
       }
     }

@@ -1,31 +1,40 @@
 <template>
-  <div class="max-w-sm m-auto my-8">
-    <div class="border p-10 border-grey-light shadow rounded">
-      <h3 class="text-2xl mb-6 text-grey-darkest">Sign In</h3>
-      <form @submit.prevent="signin">
-        <div class="text-red" v-if="error">{{ error }}</div>
+  <div class="container">
+    <div class="w-100 p-3 bg-secondary text-light">
+      <div class="border p-10 border-grey-light shadow rounded">
+        <h3 class="text-2xl mb-6 text-grey-darkest">Sign In</h3>
+        <form @submit.prevent="signin">
+          <div class="text-red" v-if="error">{{ error }}</div>
 
-        <div class="mb-6">
-          <label for="phone_number" class="label">Numero de telephone</label>
-          <input type="phone_number" v-model="phone_number" class="input" id="phone_number" placeholder="06..">
-        </div>
-        <div class="mb-6">
-          <label for="name" class="label">Prenom</label>
-          <input type="name" v-model="name" class="input" id="name" placeholder="Prenom">
-        </div>
-        <div class="mb-6">
-          <label for="last_name" class="label">Nom de famille</label>
-          <input type="last_name" v-model="last_name" class="input" id="last_name" placeholder="Nom de famille">
-        </div>
-        <button type="submit" class="font-sans font-bold px-4 rounded cursor-pointer no-underline bg-green hover:bg-green-dark block w-full py-4 text-white items-center justify-center">Sign In</button>
-
-        <div class="my-4"><router-link to="/signup" class="link-grey">Sign up</router-link></div>
-      </form>
+          <div class="mb-6">
+            <label for="phone_number" class="label">Numéro de téléphone</label>
+            <input type="phone_number" v-model="phone_number" class="input" id="phone_number" placeholder="06..">
+          </div>
+          <br>
+          <div class="mb-6">
+            <label for="name" class="label">Prénom</label>
+            <input type="name" v-model="name" class="input" id="name" placeholder="Prénom">
+          </div>
+          <br>
+          <div class="mb-6">
+            <label for="last_name" class="label">Nom de famille</label>
+            <input type="last_name" v-model="last_name" class="input" id="last_name" placeholder="Nom de famille">
+          </div>
+          <br>
+          <b-button variant="outline-dark" type="submit" >Sign In</b-button>
+            <br>
+            <br>
+          <div><router-link to="/signup" class="link-grey">Sign up</router-link></div>
+            <br>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import services from '../services/user.js'
 export default {
   name: 'Signin',
   data () {
@@ -44,9 +53,10 @@ export default {
   },
   methods: {
     signin () {
-      this.$http.plain.post('/signin', { phone_number: this.phone_number, name: this.name, last_name: this.last_name })
-        .then(response => this.signinSuccessful(response))
-        .catch(error => this.signinFailed(error))
+      services
+        .signin(this.phone_number)
+        .then((response) => this.signinSuccessful(response))
+        .catch((error) => this.signinFailed(error))
     },
     signinSuccessful (response) {
       if (!response.data.csrf) {
@@ -54,9 +64,11 @@ export default {
         return
       }
       localStorage.csrf = response.data.csrf
+      localStorage.user = JSON.stringify(response.data.user)
+      localStorage.token = response.data.token
       localStorage.signedIn = true
       this.error = ''
-      this.$router.replace('/records')
+      this.$router.replace('/messages')
     },
     signinFailed (error) {
       this.error = (error.response && error.response.data && error.response.data.error) || ''
@@ -65,7 +77,7 @@ export default {
     },
     checkSignedIn () {
       if (localStorage.signedIn) {
-        this.$router.replace('/records')
+        this.$router.replace('/messages')
       }
     }
   }
