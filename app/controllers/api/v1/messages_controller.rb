@@ -2,7 +2,7 @@ module Api
   module V1
     class MessagesController < ApplicationController
       before_action :set_message, only: [:show, :update, :destroy]
-      before_action :authorize_access_request!, except: [:show, :index]
+      before_action :authorize_access_request
 
       def index
         @messages = current_user.messages.all

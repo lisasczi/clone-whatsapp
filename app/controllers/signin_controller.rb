@@ -4,7 +4,7 @@ class SigninController < ApplicationController
   def create
     user = User.find_by!(phone_number: params[:phone_number])
     # if user.authenticate(params[:name])
-    if user.authenticate(params[:phone_number])
+    if user
       payload = { user_id: user.id }
       session = JWTSessions::Session.new(payload: payload, refresh_by_access_allowed: true)
       tokens = session.login
@@ -12,7 +12,11 @@ class SigninController < ApplicationController
                         value: tokens[:access],
                         httponly: true,
                         secure: Rails.env.production?)
-      render json: { csrf: tokens[:csrf] }
+      render json: {
+        csrf: tokens[:csrf],
+        user: user,
+        token: tokens[:access]
+      }
     else
       not_authorized
     end
