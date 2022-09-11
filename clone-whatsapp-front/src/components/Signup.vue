@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="w-100 p-3 bg-secondary text-light">>
+    <div class="w-100 p-3 bg-secondary text-light">
       <div class="border p-10 border-grey-light shadow rounded">
         <h3 class="text-2xl mb-6 text-grey-darkest">Sign Up</h3>
         <form @submit.prevent="signup">
@@ -62,7 +62,7 @@ export default {
       localStorage.csrf = response.data.csrf
       localStorage.signedUp = true
       this.error = ''
-      this.$router.replace('/records')
+      this.$router.replace('/messages')
     },
     signupFailed (error) {
       this.error = (error.response && error.response.data && error.response.data.error) || 'Something went wrong'
@@ -71,7 +71,7 @@ export default {
     },
     checkedSignedUp () {
       if (localStorage.signedUp) {
-        this.$router.replace('/records')
+        this.$router.replace('/messages')
       }
     }
   }

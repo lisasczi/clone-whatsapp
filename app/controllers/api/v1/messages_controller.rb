@@ -42,7 +42,7 @@ module Api
       end
 
       def record_params
-        params.require(:message).permit(:text, :sender_id, :receiver_id)
+        params.require(:message).permit(:text, :sender_id, :chat_id)
       end
     end
   end
