@@ -9,8 +9,23 @@ Rails.application.routes.draw do
       resources :users do
       resources :messages
       end
+
+      resources :messages do
+        resources :users do
+        resources :chats
+        end
+      end
+
+      resources :user_chats do
+        resources :users do
+          resources :chats
+        end
+      end
+
     end
   end
+
+
   post 'refresh', controller: :refresh, action: :create
   post 'signin', controller: :signin, action: :create
   post 'signup', controller: :signup, action: :create
