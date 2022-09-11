@@ -15,14 +15,26 @@ ActiveRecord::Schema.define(version: 2022_09_07_080840) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "chats", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "messages", force: :cascade do |t|
     t.text "text"
     t.bigint "sender_id", null: false
-    t.bigint "receiver_id", null: false
+    t.bigint "chat_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["receiver_id"], name: "index_messages_on_receiver_id"
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
+  create_table "user_chats", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "chat_id", null: false
+    t.index ["chat_id"], name: "index_user_chats_on_chat_id"
+    t.index ["user_id"], name: "index_user_chats_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -33,6 +45,8 @@ ActiveRecord::Schema.define(version: 2022_09_07_080840) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "messages", "users", column: "receiver_id"
+  add_foreign_key "messages", "chats"
   add_foreign_key "messages", "users", column: "sender_id"
+  add_foreign_key "user_chats", "chats"
+  add_foreign_key "user_chats", "users"
 end

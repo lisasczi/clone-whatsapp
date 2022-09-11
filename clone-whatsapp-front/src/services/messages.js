@@ -2,10 +2,10 @@ import axios from 'axios'
 
 const services = {
   allContacts (user) {
-    console.log(localStorage.token)
+    const headers = {'Authorization': `Bearer ${localStorage.token}`}
+    console.log(`Bearer ${localStorage.token}`)
     return axios
-      .get(`http://localhost:3000/api/v1/users/${user.id}/messages`, {
-      })
+      .get(`http://localhost:3000/api/v1/users/${user.id}/messages`, {headers})
   }
 }
 export default services

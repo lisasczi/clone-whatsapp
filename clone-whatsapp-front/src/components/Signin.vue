@@ -45,12 +45,12 @@ export default {
       error: ''
     }
   },
-  created () {
-    this.checkSignedIn()
-  },
-  updated () {
-    this.checkSignedIn()
-  },
+  // created () {
+  //   this.checkSignedIn()
+  // },
+  // updated () {
+  //   this.checkSignedIn()
+  // },
   methods: {
     signin () {
       services
