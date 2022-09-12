@@ -6,19 +6,19 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
-      resources :users do
-      resources :messages
+      resources :users, only: [ :show, :index, :create] do
+      resources :messages, only: [ :show, :index]
       end
 
-      resources :messages do
-        resources :users do
-        resources :chats
+      resources :messages, only: [ :show, :index]  do
+        resources :users, only: [ :show, :index, :create]  do
+        resources :chats, only: [ :show, :index]
         end
       end
 
-      resources :user_chats do
-        resources :users do
-          resources :chats
+      resources :user_chats, only: [ :show, :index]  do
+        resources :users, only: [ :show, :index, :create]  do
+          resources :chats, only: [ :show, :index]
         end
       end
 
