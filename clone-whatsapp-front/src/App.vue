@@ -25,11 +25,11 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: sans-serif;
+  color: #424242;
+  letter-spacing: 2px;
+  margin: 20px;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background-color: #e2d9d2;
 }
 </style>

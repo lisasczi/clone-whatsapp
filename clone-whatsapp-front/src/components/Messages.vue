@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <br>
-    <h1> Bonjour {{user.name}} {{user.last_name}}</h1>
+    <h3> Bonjour {{user.name}} {{user.last_name}}</h3>
     <br>
     <ul>
       <li v-for="(message, index) in messages" v-bind:key="index">
@@ -27,8 +27,15 @@ export default {
     services
       .allContacts(this.user)
       .then(response => {
-        this.messages = response.data // example
+        this.messages = response.data
       })
   }
 }
 </script>
+
+<style>
+  li {
+    list-style-type: none;
+  }
+
+</style>

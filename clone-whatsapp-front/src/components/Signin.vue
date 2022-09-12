@@ -1,40 +1,37 @@
 <template>
   <div class="container">
-    <div class="w-100 p-3 bg-secondary text-light">
-      <div class="border p-10 border-grey-light shadow rounded">
-        <h3 class="text-2xl mb-6 text-grey-darkest">Sign In</h3>
+    <div class="carte">
+        <h3 class="text-2xl mb-6">Connexion</h3>
         <br>
         <form @submit.prevent="signin">
-          <div class="text-red" v-if="error">{{ error }}</div>
-
-          <div class="mb-6">
+          <b-alert show variant="success" v-if="error">{{ error }}</b-alert>
+          <br>
+          <div class="mb-4">
             <label for="phone_number" class="label">Numéro de téléphone</label>
             <input type="phone_number" v-model="phone_number" class="input" id="phone_number" placeholder="06..">
           </div>
           <br>
-          <div class="mb-6">
+          <div class="mb-4">
             <label for="name" class="label">Prénom</label>
             <input type="name" v-model="name" class="input" id="name" placeholder="Prénom">
           </div>
           <br>
-          <div class="mb-6">
+          <div class="mb-4">
             <label for="last_name" class="label">Nom de famille</label>
             <input type="last_name" v-model="last_name" class="input" id="last_name" placeholder="Nom de famille">
           </div>
           <br>
-          <b-button variant="outline-dark" type="submit" >Sign In</b-button>
+          <b-button variant="outline-success" type="submit" >Sign In</b-button>
             <br>
             <br>
           <div><router-link to="/signup" class="link-grey">Sign up</router-link></div>
             <br>
         </form>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-
 import services from '../services/user.js'
 export default {
   name: 'Signin',
@@ -84,3 +81,33 @@ export default {
   }
 }
 </script>
+<style>
+.carte{
+  background-color: #f4f1ee;
+  border-radius: 25px;
+  border: 1px solid white;
+  margin: 16px;
+  padding-top: 16px;
+  width: auto;
+  height: auto;
+}
+
+.link-grey{
+  text-decoration: none;
+  border: 1px solid green;
+  border-radius: 10px;
+  color: green;
+  padding: 8px;
+}
+.link-grey:hover{
+  text-decoration: none;
+  border: 1px solid green;
+  border-radius: 10px;
+  background-color: green;
+  color: white;
+  padding: 8px;
+}
+.input{
+  justify-content: right;
+}
+</style>
