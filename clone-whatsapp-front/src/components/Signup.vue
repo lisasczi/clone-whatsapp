@@ -1,14 +1,13 @@
 <template>
   <div class="container">
-    <div class="w-100 p-3 bg-secondary text-light">
-      <div class="border p-10 border-grey-light shadow rounded">
-        <h3 class="text-2xl mb-6 text-grey-darkest">Sign Up</h3>
+    <div class="carte">
+        <h3 class="text-2xl mb-6">Inscrivez vous</h3>
         <br>
         <form @submit.prevent="signup">
           <div class="text-red" v-if="error">{{ error }}</div>
 
           <div class="mb-6">
-            <label for="phone_number" class="label">numéro de téléphone</label>
+            <label for="phone_number" class="label">Numéro de téléphone</label>
             <input type="phone_number" v-model="phone_number" class="input" id="phone_number" placeholder="06..">
           </div>
           <br>
@@ -22,13 +21,12 @@
             <input type="last_name" v-model="last_name" class="input" id="last_name" placeholder="Nom de famille">
           </div>
           <br>
-          <b-button variant="outline-dark" type="submit" >Sign Up</b-button>
+          <b-button variant="outline-success" type="submit" >Sign Up</b-button>
               <br>
               <br>
           <div class="my-4"><router-link to="/" class="link-grey">Sign In</router-link></div>
           <br>
         </form>
-      </div>
     </div>
   </div>
 </template>
@@ -54,7 +52,6 @@ export default {
   methods: {
     signup () {
       services
-        // this.$http.plain.post('/signup', { phone_number: this.phone_number, name: this.name, last_name: this.last_name })
         .signup(this.phone_number, this.name, this.last_name)
         .then(response => this.signupSuccessful(response))
         .catch(error => this.signupFailed(error))
@@ -72,7 +69,7 @@ export default {
       this.$router.replace('/messages')
     },
     signupFailed (error) {
-      this.error = (error.response && error.response.data && error.response.data.error) || 'Something went wrong'
+      this.error = (error.response && error.response.data && error.response.data.error) || 'Quelque chose ne va pas...'
       delete localStorage.csrf
       delete localStorage.signedUp
     },
