@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :user_chats
   has_many :chats, through: :user_chats
 
-  validates :phone_number, presence: true
+  validates :phone_number, presence: true, uniqueness: true
   validates :name, presence: true
   validates :last_name, presence: true
 end

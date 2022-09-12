@@ -3,6 +3,7 @@
     <div class="w-100 p-3 bg-secondary text-light">
       <div class="border p-10 border-grey-light shadow rounded">
         <h3 class="text-2xl mb-6 text-grey-darkest">Sign In</h3>
+        <br>
         <form @submit.prevent="signin">
           <div class="text-red" v-if="error">{{ error }}</div>
 
@@ -45,16 +46,16 @@ export default {
       error: ''
     }
   },
-  // created () {
-  //   this.checkSignedIn()
-  // },
-  // updated () {
-  //   this.checkSignedIn()
-  // },
+  created () {
+    this.checkSignedIn()
+  },
+  updated () {
+    this.checkSignedIn()
+  },
   methods: {
     signin () {
       services
-        .signin(this.phone_number)
+        .signin(this.phone_number, this.name, this.last_name)
         .then((response) => this.signinSuccessful(response))
         .catch((error) => this.signinFailed(error))
     },
@@ -67,11 +68,11 @@ export default {
       localStorage.user = JSON.stringify(response.data.user)
       localStorage.token = response.data.token
       localStorage.signedIn = true
-      this.error = ''
+      this.error = 'Numéro de téléphone introuvable'
       this.$router.replace('/messages')
     },
     signinFailed (error) {
-      this.error = (error.response && error.response.data && error.response.data.error) || ''
+      this.error = (error.response && error.response.data && error.response.data.error) || 'Numéro de téléphone introuvable'
       delete localStorage.csrf
       delete localStorage.signedIn
     },
